@@ -1,9 +1,9 @@
 export const API_URLS = {
-  BASE_HOST: "https://api-v3.raydium.io",
+  BASE_HOST: "https://api.solarstudios.co",
   OWNER_BASE_HOST: "https://owner-v1.raydium.io",
   SERVICE_BASE_HOST: "https://service.raydium.io",
   MONITOR_BASE_HOST: "https://monitor.raydium.io",
-  SERVICE_1_BASE_HOST: "https://service-v1.raydium.io",
+  SERVICE_1_BASE_HOST: "https://api.solarstudios.co",
 
   SEND_TRANSACTION: "/send-transaction",
   FARM_ARP: "/main/farm/info",
@@ -64,7 +64,7 @@ export const API_URLS = {
   OWNER_STAKE_FARMS: "/position/stake/{owner}",
   OWNER_LOCK_POSITION: "/position/clmm-lock/{owner}",
   IDO_KEYS: "/ido/key/ids",
-  SWAP_HOST: "https://transaction-v1.raydium.io",
+  SWAP_HOST: "https://api.solarstudios.co",
   SWAP_COMPUTE: "/compute/",
   SWAP_TX: "/transaction/",
   MINT_PRICE: "/mint/price",

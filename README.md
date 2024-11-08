@@ -1,18 +1,18 @@
-# Raydium SDK
+# SOLAR SDK
 
-[npm-image]: https://img.shields.io/npm/v/@raydium-io/raydium-sdk-v2.svg?style=flat
+<!-- [npm-image]: https://img.shields.io/npm/v/@raydium-io/raydium-sdk-v2.svg?style=flat
 [npm-url]: https://www.npmjs.com/package/@raydium-io/raydium-sdk-v2
 
-[![npm][npm-image]][npm-url]
+[![npm][npm-image]][npm-url] -->
 
-An SDK for building applications on top of Raydium.
+An SDK for building applications on top of Solar .
 
 ## Usage Guide
 
 ### Installation
 
 ```
-$ yarn add @raydium-io/raydium-sdk-v2
+$ yarn add solar-dex
 ```
 
 ## SDK method Demo

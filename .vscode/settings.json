@@ -67,5 +67,8 @@
       "bold": false,
       "italic": false
     }
-  ]
+  ],
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  }
 }
