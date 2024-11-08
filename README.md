@@ -1,10 +1,5 @@
 # SOLAR SDK
 
-<!-- [npm-image]: https://img.shields.io/npm/v/@raydium-io/raydium-sdk-v2.svg?style=flat
-[npm-url]: https://www.npmjs.com/package/@raydium-io/raydium-sdk-v2
-
-[![npm][npm-image]][npm-url] -->
-
 An SDK for building applications on top of Solar .
 
 ## Usage Guide
@@ -15,107 +10,76 @@ An SDK for building applications on top of Solar .
 $ yarn add solar-dex
 ```
 
-## SDK method Demo
+## Trade API
+Solar trade API is the fastest and easiest way to interact with solar liquidity. It allows you to swap for any asset with 2 requests and a signature.
 
-[SDK V2 Demo Repo](https://github.com/raydium-io/raydium-sdk-V2-demo)
+### Get quote parameters
 
-## SDK local test
-
-```
-$ yarn dev {directory}
-
-e.g. yarn dev test/init.ts
-```
-
-## Features
-
-### Initialization
-
-```
-import { Raydium } from '@raydium-io/raydium-sdk'
-const raydium = await Raydium.load({
-  connection,
-  owner, // key pair or publicKey, if you run a node process, provide keyPair
-  signAllTransactions, // optional - provide sign functions provided by @solana/wallet-adapter-react
-  tokenAccounts, // optional, if dapp handle it by self can provide to sdk
-  tokenAccountRowInfos, // optional, if dapp handle it by self can provide to sdk
-  disableLoadToken: false // default is false, if you don't need token info, set to true
-})
-```
-
-#### how to transform token account data
-
-```
-import { parseTokenAccountResp } from '@raydium-io/raydium-sdk'
-
-const solAccountResp = await connection.getAccountInfo(owner.publicKey)
-const tokenAccountResp = await connection.getTokenAccountsByOwner(owner.publicKey, { programId: TOKEN_PROGRAM_ID })
-const token2022Req = await connection.getTokenAccountsByOwner(owner.publicKey, { programId: TOKEN_2022_PROGRAM_ID })
-const tokenAccountData = parseTokenAccountResp({
-  owner: owner.publicKey,
-  solAccountResp,
-  tokenAccountResp: {
-    context: tokenAccountResp.context,
-    value: [...tokenAccountResp.value, ...token2022Req.value],
-  },
-})
-```
-
-#### data after initialization
-
-```
-# token
-raydium.token.tokenList
-raydium.token.tokenMap
-raydium.token.mintGroup
+| Parameter    | Type   | Required | Description                                               |
+|--------------|--------|----------|-----------------------------------------------------------|
+| inputMint    | string | yes      | Input token mint address                                  |
+| outputMint   | string | yes      | Output token mint address                                 |
+| amount       | number | yes      | Either inputAmount or outputAmount depending on the swap mode. |
+| slippageBps  | number | yes      | Slippage tolerance in base points (0.01%).               |
 
 
-# token account
-raydium.account.tokenAccounts
-raydium.account.tokenAccountRawInfos
-```
+### Post parameters
 
-#### Api methods (https://github.com/raydium-io/raydium-sdk-V2/blob/master/src/api/api.ts)
+| Parameter                     | Type    | Required | Description                                                                                                                       |
+|-------------------------------|---------|----------|-----------------------------------------------------------------------------------------------------------------------------------|
+| version                       | string  | yes      | Use 'V0' for versioned transaction, and 'LEGACY' for legacy transaction (for now only supports 'LEGACY').                                                          |
+| wrapSol                       | boolean | no       | Set to true to accept ETH as `inputToken`.                                                                                        |
+| unwrapSol                     | boolean | no       | Set to true to unwrap `wETH` received as `outputToken`.                                                                           |
+| computeUnitPriceMicroLamports  | string  | yes      | You can manually set this or use Solar priority fee API to set an automatic amount with `String(data.data.default.h)`. The 'h' stands for high priority. 'vh' for very high and 'm' for medium are also accepted values. |
+| wallet                        | string  | yes      | Public key of the wallet.                                                                                                         |
+| inputTokenAccount             | string  | no       | Defaults to ATA (Associated Token Account).                                                                                       |
+| outputTokenAccount            | string  | no       | Defaults to ATA (Associated Token Account).                                                                                       |
 
-- fetch raydium default mint list
 
-```
-const data = await raydium.api.getTokenList()
-```
+### Get quote (https://api.solarstudios.co/compute/$) & and define the swap type.
 
-- fetch mints recognizable by raydium
+### Serialize (https://api.solarstudios.co/transaction/$)
 
-```
-const data = await raydium.api.getTokenInfo(['So11111111111111111111111111111111111111112', '4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R'])
-```
+Our apis schema and working is same as raydium's api. For now our api only supports LEGACY tx.
 
-- fetch pool list
-  available fetch params defined here: https://github.com/raydium-io/raydium-sdk-V2/blob/master/src/api/type.ts#L249
+#### Raydium Trade api guide - https://docs.raydium.io/raydium/traders/trade-api
+#### Demo Implimentations - https://github.com/raydium-io/raydium-sdk-V2-demo/blob/master/src/api/swap.ts#L21
 
-```
-const data = await raydium.api.getPoolList({})
-```
+#### BASE API URL - https://api.solarstudios.co
 
-- fetch poolInfo by id
+# API Endpoints
 
-```
-// ids: join pool ids by comma(,)
-const data = await raydium.api.fetchPoolById({ ids: 'AVs9TA4nWDzfPJE9gGVNJMVhcQy3V9PGazuz33BfG2RA,8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj' })
-```
+## Main
+Main API endpoints for general information and configuration.
 
-- fetch pool list by mints
+| Method | Endpoint               | Description                        |
+|--------|-------------------------|------------------------------------|
+| GET    | `/main/version`         | UI V3 current version             |
+| GET    | `/main/rpcs`            | UI RPCs                           |
+| GET    | `/main/chain-time`      | Chain Time                        |
+| GET    | `/main/info`            | Total Value Locked (TVL) and 24-hour volume |
+| GET    | `/main/auto-fee`        | Transaction auto fee              |
+| GET    | `/main/clmm-config`     | CLMM Config                       |
+| GET    | `/main/cpmm-config`     | CPMM Config                       |
 
-```
-const data = await raydium.api.fetchPoolByMints({
-  mint1: 'So11111111111111111111111111111111111111112',
-  mint2: '4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R' // optional,
-  // extra params: https://github.com/raydium-io/raydium-sdk-V2/blob/master/src/api/type.ts#L249
-})
-```
+## Mint
+Endpoints related to mint information.
 
-- fetch farmInfo by id
+| Method | Endpoint               | Description                        |
+|--------|-------------------------|------------------------------------|
+| GET    | `/mint/list`            | Default Mint List                 |
+| GET    | `/mint/ids`             | Mint Info                         |
+| GET    | `/mint/price`           | Mint Price                        |
 
-```
-// ids: join farm ids by comma(,)
-const data = await raydium.api.fetchFarmInfoById({ ids: '4EwbZo8BZXP5313z5A2H11MRBP15M5n6YxfmkjXESKAW,HUDr9BDaAGqi37xbQHzxCyXvfMCKPTPNF8g9c9bPu1Fu' })
-```
+## Pools
+Endpoints for pool information, keys, and historical data.
+
+| Method | Endpoint               | Description                        |
+|--------|-------------------------|------------------------------------|
+| GET    | `/pools/info/ids`       | Pool Info                         |
+| GET    | `/pools/info/lps`       | Pool Info by LP Mint              |
+| GET    | `/pools/info/list`      | Pool Info List                    |
+| GET    | `/pools/info/mint`      | Pool Info by Token Mint           |
+| GET    | `/pools/key/ids`        | Pool Key                          |
+
+#### For query parameters refer - https://api-v3.raydium.io/docs/#/
