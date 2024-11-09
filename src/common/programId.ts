@@ -29,7 +29,7 @@ export const IDO_PROGRAM_ID_V4 = new PublicKey("DropEU8AvevN3UrXWXTMuz3rqnMczQVN
 
 export const CREATE_CPMM_POOL_PROGRAM = new PublicKey("sooGfQwJ6enHfLTPfasFZtFR7DgobkJD77maDNEqGkD");
 export const CREATE_CPMM_POOL_AUTH = new PublicKey("7nuPtH4c7BJUbfyGvRYQYBqZpPf81SHCJxPuMSYXtC6i");
-export const CREATE_CPMM_POOL_FEE_ACC = new PublicKey("83gLucJu4ryXKCpxKfig8PZwKdzGW1DgZmPX82p7VLD4");
+export const CREATE_CPMM_POOL_FEE_ACC = new PublicKey("8zMpsHcZEiZAuMFmd46ACKtg3om37UeWx2YKfUiRG6Gd");
 
 export const DEV_CREATE_CPMM_POOL_PROGRAM = new PublicKey("sooGfQwJ6enHfLTPfasFZtFR7DgobkJD77maDNEqGkD");
 export const DEV_CREATE_CPMM_POOL_AUTH = new PublicKey("7nuPtH4c7BJUbfyGvRYQYBqZpPf81SHCJxPuMSYXtC6i");
