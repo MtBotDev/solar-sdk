@@ -15,7 +15,7 @@ export const SERUM_PROGRAM_ID_V3 = new PublicKey("9xQeWvG816bUx9EPjHmaT23yvVM2ZW
 export const AMM_V4 = new PublicKey("675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8");
 export const AMM_STABLE = new PublicKey("5quBtoiQqxF9Jv6KYKctB59NT3gtJD2Y65kdnB1Uev3h");
 export const LIQUIDITY_POOL_PROGRAM_ID_V5_MODEL = new PublicKey("CDSr3ssLcRB6XYPJwAfFt18MZvEZp4LjHcvzBVZ45duo");
-export const CLMM_PROGRAM_ID = new PublicKey("CLsiWisG9Ek7dFgD8ENYtxLBbMEVxB64M3wD4f2XuZSn");
+export const CLMM_PROGRAM_ID = new PublicKey("CLK8pJyTV17Mwq3MrgbbojEiVXcmrMYC3J59JC9xhgNQ");
 export const CLMM_LOCK_PROGRAM_ID = new PublicKey("LockrWmn6K5twhz3y9w1dQERbmgSaRkfnTeTKbpofwE");
 export const CLMM_LOCK_AUTH_ID = new PublicKey("kN1kEznaF5Xbd8LYuqtEFcxzWSBk5Fv6ygX6SqEGJVy");
 
