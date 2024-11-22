@@ -7,7 +7,7 @@ An SDK for building applications on top of Solar .
 ### Installation
 
 ```
-$ yarn add solar-dex
+$ yarn add solar-sdk
 ```
 
 ## Trade API
